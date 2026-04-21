@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Prospira – Smarter Job Search with AI</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <style>
+    /* -----------------------------------------------------------
+       LIGHT THEME TOKENS — PURPLE BRAND SYSTEM
+    ----------------------------------------------------------- */
+    :root {
+      --bg: #ffffff;
+      --bg-subtle: #f5f5f7;
+      --text-main: #1f2937;
+      --text-muted: #4b5563;
+      --border: #e5e7eb;
+
+      /* Brand Purples */
+      --brand: #9654D6;
+      --brand-hover: #8032CD;
+      --brand-deep: #6929A8;
+
+      --brand-soft: rgba(150, 84, 214, 0.12);
+
+      --radius-lg: 20px;
+      --radius-md: 14px;
+      --radius-pill: 999px;
+
+      --shadow-soft: 0 8px 20px rgba(0,0,0,0.04);
+      --shadow-card: 0 12px 28px rgba(105, 41, 168, 0.12);
+
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-main);
+      background: var(--bg);
+      color: var(--text-main);
+      padding: 32px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 1280px;
+      background: var(--bg);
+      border-radius: 28px;
+      padding: 120px 48px 80px;
+      display: flex;
+      flex-direction: column;
+      gap: 80px;
+    }
+
+    /* -----------------------------------------------------------
+       NAVBAR
+    ----------------------------------------------------------- */
+      .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1000;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-top: 20px;
+        padding-bottom: 24px;
+        padding-left: 20px;
+        padding-right: 20px;
+        border-bottom: 1px solid var(--border);
+        background: var(--bg);
+        box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+      }
+
+    .logo {
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--brand);
+      display: inline-flex;
+      align-items: center;
+      padding: 0;
+      border: none;
+      background: transparent;
+    }
+
+    .logo span {
+      color: var(--text-main);
+    }
+
+    .nav-search {
+      flex: 1;
+      margin: 0 24px;
+      position: relative;
+      max-width: 420px;
+    }
+
+    .nav-search input {
+      width: 100%;
+      padding: 12px 14px 12px 38px;
+      border-radius: var(--radius-pill);
+      border: 1px solid var(--border);
+      background: #ffffff;
+      font-size: 0.95rem;
+    }
+
+    .nav-search-icon {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      font-size: 0.95rem;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 6px 12px;
+      border-radius: var(--radius-pill);
+    }
+
+    .nav-links a:hover {
+      background: var(--bg-subtle);
+    }
+
+    .nav-links .cta {
+      background: var(--brand);
+      color: white;
+      padding: 8px 18px;
+      font-weight: 600;
+      border-radius: var(--radius-pill);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .nav-links .cta:hover {
+      background: var(--brand-hover);
+    }
+
+    /* -----------------------------------------------------------
+       HERO + SIDEBAR GRID
+    ----------------------------------------------------------- */
+    .main {
+      display: grid;
+      grid-template-columns: 1.3fr 0.9fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      padding: 8px 14px;
+      border-radius: var(--radius-pill);
+      background: var(--brand-soft);
+      color: var(--brand);
+      font-size: 0.85rem;
+      margin-bottom: 18px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+
+    .hero-visual img {
+      width: 100%;
+      max-width: 520px;
+      height: auto;
+      border-radius: 24px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .hero h1 {
+      font-size: 3rem;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+
+    .hero h1 span {
+      color: var(--brand);
+    }
+
+    .hero-subtitle {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+      max-width: 560px;
+      line-height: 1.8;
+    }
+
+    .hero-detail {
+      font-size: 1rem;
+      color: var(--text-muted);
+      max-width: 560px;
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+
+    .upload-form input {
+      width: 100%;
+      padding: 16px 18px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      font-size: 1rem;
+      background: #ffffff;
+    }
+
+    .upload-form button {
+      width: fit-content;
+      align-self: start;
+    }
+
+    .hero-cta-row {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .primary-btn {
+      background: var(--brand);
+      color: white;
+      padding: 12px 22px;
+      border-radius: var(--radius-pill);
+      border: none;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .primary-btn:hover {
+      background: var(--brand-hover);
+    }
+
+    .secondary-link {
+      color: var(--brand);
+      padding: 10px 16px;
+      border-radius: var(--radius-pill);
+      border: 1px dashed var(--brand);
+      background: var(--brand-soft);
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+
+    .hero-footnote {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* -----------------------------------------------------------
+       VALUE CARD
+    ----------------------------------------------------------- */
+    .value-card {
+      margin-top: 40px;
+      padding: 32px;
+      border-radius: var(--radius-lg);
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow-soft);
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 32px;
+    }
+
+    .value-card h2 {
+      font-size: 1.4rem;
+      margin-bottom: 12px;
+    }
+
+    .value-card p {
+      color: var(--text-muted);
+      font-size: 1rem;
+      line-height: 1.55;
+    }
+
+    .value-card-visual {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .value-card-pill {
+      background: var(--brand-soft);
+      color: var(--brand);
+      padding: 4px 12px;
+      border-radius: var(--radius-pill);
+      font-size: 0.8rem;
+      align-self: flex-start;
+    }
+
+    .value-card-bar {
+      height: 8px;
+      background: var(--bg-subtle);
+      border-radius: var(--radius-pill);
+      overflow: hidden;
+    }
+
+    .value-card-bar-fill {
+      height: 100%;
+      background: var(--brand);
+      border-radius: inherit;
+      width: 70%;
+    }
+
+    /* -----------------------------------------------------------
+       SIDEBAR PANEL
+    ----------------------------------------------------------- */
+    .right-panel {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .right-panel-title {
+      font-size: 1.3rem;
+      margin-bottom: 12px;
+    }
+
+    .right-panel-body {
+      color: var(--text-muted);
+      font-size: 1rem;
+      margin-bottom: 20px;
+      line-height: 1.55;
+    }
+
+    .right-panel-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .right-panel-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--brand);
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 8px;
+    }
+
+    /* -----------------------------------------------------------
+       FEATURES
+    ----------------------------------------------------------- */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      margin-top: 40px;
+    }
+
+    .feature-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      box-shadow: var(--shadow-soft);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-card);
+    }
+
+    .feature-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--brand-soft);
+      color: var(--brand);
+      border-radius: var(--radius-pill);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      font-size: 1.2rem;
+    }
+
+    /* -----------------------------------------------------------
+       ABOUT SECTION — BELOW MAIN CONTENT
+    ----------------------------------------------------------- */
+    .about-section {
+      margin-top: 120px;
+      padding-top: 80px;
+    }
+
+    .about-header {
+      text-align: center;
+      max-width: 720px;
+      margin: 0 auto 64px;
+    }
+
+    .about-logo {
+      width: 200px;
+      height: auto;
+      margin: 0 auto 20px;
+      display: block;
+      border: none;
+      box-shadow: none;
+      border-radius: 0;
+    }
+
+    .about-header h2 {
+      font-size: 2rem;
+      margin-bottom: 16px;
+    }
+
+    .about-header p {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 48px;
+    }
+
+    .about-card {
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 32px;
+      box-shadow: var(--shadow-soft);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      overflow: hidden;
+    }
+
+    .about-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-card);
+    }
+
+    .values-checklist {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 8px 0;
+    }
+
+    .checkmark {
+      color: var(--brand);
+      font-size: 1.2rem;
+      font-weight: bold;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .checklist-item span:last-child {
+      line-height: 1.5;
+      color: var(--text-main);
+    }
+
+    .about-img {
+      width: 100%;
+      height: 320px;
+      border-radius: var(--radius-md);
+      margin-bottom: 16px;
+      border: 1px solid var(--border);
+      object-fit: cover;
+      animation: scrollImage 18s ease-in-out infinite alternate;
+    }
+
+    @keyframes scrollImage {
+      from { transform: translateY(0); }
+      to { transform: translateY(-20%); }
+    }
+
+    /* -----------------------------------------------------------
+       FOOTER
+    ----------------------------------------------------------- */
+    .footer {
+      margin-top: 80px;
+      display: flex;
+      justify-content: space-between;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* -----------------------------------------------------------
+       ANIMATIONS
+    ----------------------------------------------------------- */
+    .fade-in {
+      opacity: 0;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    .slide-up {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: slideUp 1s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* -----------------------------------------------------------
+       RESPONSIVE
+    ----------------------------------------------------------- */
+    @media (max-width: 900px) {
+      .main {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+      .value-card {
+        grid-template-columns: 1fr;
+      }
+      .features {
+        grid-template-columns: 1fr 1fr;
+      }
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .features {
+        grid-template-columns: 1fr;
+      }
+      .hero h1 {
+        font-size: 2.4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- NAVBAR -->
+    <header class="navbar fade-in">
+      <a href="#" class="logo">PROSPIRA</a>
+
+      <div class="nav-search">
+        <span class="nav-search-icon">🔍</span>
+        <input type="text" placeholder="Search jobs, titles, companies…">
+      </div>
+
+      <nav class="nav-links">
+        <a href="about.html">About</a>
+        <a href="ai-tools.html">AI Tools</a>
+        <a href="#">Sign in</a>
+        <a href="getstarted.html" class="cta">Get started</a>
+      </nav>
+    </header>
+
+    <!-- MAIN GRID -->
+    <main class="main">
+
+      <!-- HERO SECTION -->
+      <section class="hero slide-up">
+        <div class="hero-eyebrow">Less noise. More offers.</div>
+
+        <h1>Start your job search <span>today.</span></h1>
+
+        <p class="hero-subtitle">
+          Upload your resume and let our AI-powered platform match you with the best job opportunities tailored to your skills and goals.
+        </p>
+
+        <div class="hero-cta-row">
+          <a href="getstarted.html" class="primary-btn">Get started today →</a>
+          <a href="about.html" class="secondary-link">Learn more ↗</a>
+        </div>
+
+        <p class="hero-footnote">
+          No spam, no guesswork — just clarity and confidence.
+        </p>
+
+        <!-- VALUE CARD -->
+        <section class="value-card fade-in">
+          <div>
+            <h2>Streamline your job application process</h2>
+            <p>
+              With AI-powered job matching and personalized career coaching, you’ll feel more prepared than ever.
+            </p>
+          </div>
+
+          <div class="value-card-visual">
+            <span class="value-card-pill">Live match preview</span>
+
+            <div class="value-card-bar">
+              <div class="value-card-bar-fill"></div>
+            </div>
+            <div class="value-card-bar">
+              <div class="value-card-bar-fill" style="width: 55%"></div>
+            </div>
+            <div class="value-card-bar">
+              <div class="value-card-bar-fill" style="width: 85%"></div>
+            </div>
+          </div>
+        </section>
+      </section>
+
+        <section class="hero-visual fade-in">
+          <video id="hero-video" autoplay muted playsinline style="width:120%;height:auto;display:block;margin:0 auto;border-radius:10px;">
+              <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                  var heroVideo = document.getElementById('hero-video');
+                  if (heroVideo) {
+                    heroVideo.addEventListener('ended', function() {
+                      setTimeout(function() {
+                        heroVideo.currentTime = 0;
+                        heroVideo.play();
+                      }, 900000); // 15 minutes in milliseconds
+                    });
+                  }
+                });
+              </script>
+            <source src="style/No%20spam,%20no%20guesswork%20%E2%80%94%20just%20clarity%20and%20confidence..mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+      </section>
+
+    </main>
+    <!-- FEATURES -->
+    <section class="features fade-in">
+      <article class="feature-card">
+        <div class="feature-icon">🎯</div>
+        <h3>Job Matching</h3>
+        <p>Compare roles directly to your resume and surface the opportunities that fit you best.</p>
+      </article>
+
+      <article class="feature-card">
+        <div class="feature-icon">📊</div>
+        <h3>Track your applications</h3>
+        <p>Keep every application, status, and follow-up in one clear, calm dashboard.</p>
+      </article>
+
+      <article class="feature-card">
+        <div class="feature-icon">🤖</div>
+        <h3>AI career coaching</h3>
+        <p>Get tailored guidance on resumes, outreach, and next steps — grounded in your experience.</p>
+      </article>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section class="about-section fade-in">
+      <div class="about-header slide-up">
+        <img src="style/LogoforProsperia.png" alt="Prospira logo" class="about-logo">
+        <h2>About the Company</h2>
+        <p>
+          We created an app to help college seniors find the right job after graduating from school.
+          We want to streamline the application process and reduce the stress.
+          Tired of wasting time filling out tens of applications only to not land an interview?
+          That’s where Prospira comes in, with our tools you will be landing more interviews, getting more jobs, and finding the right career for you.
+        </p>
+        <p>
+          Talking to our peers, we understood how stressful and time consuming getting a job can be.
+          So we created an app to help remove stress and save users time throughout the job application process.
+          With our app users can build their resume, get interviews and career coaching, and use our custom job matching tool to find the right fit for them.
+          We are committed to our customers' success, and think the job application process can be way too confusing at times.
+        </p>
+      </div>
+
+      <div class="about-grid">
+
+        <!-- ABOUT CARD 1 -->
+        <div class="about-card fade-in">
+          <img class="about-img" src="style/ResumeExample.png" alt="App in action screenshot">
+          <h3>See the App in Action</h3>
+          <p>
+            Explore how our tools guide you through matching, applying, and tracking your job search with ease.
+          </p>
+        </div>
+
+        <!-- ABOUT CARD 2 -->
+        <div class="about-card fade-in">
+          <h3>Our Mission & Values</h3>
+          <div class="values-checklist">
+            <div class="checklist-item">
+              <span class="checkmark">✓</span>
+              <span>Every student deserves a <strong>structured</strong> job search experience</span>
+            </div>
+            <div class="checklist-item">
+              <span class="checkmark">✓</span>
+              <span>Every student deserves a <strong>supportive</strong> job search experience</span>
+            </div>
+            <div class="checklist-item">
+              <span class="checkmark">✓</span>
+              <span>Every student deserves a <strong>transparent</strong> job search experience</span>
+            </div>
+            <div class="checklist-item">
+              <span class="checkmark">✓</span>
+              <span>We value <strong>accessibility</strong> for all students</span>
+            </div>
+            <div class="checklist-item">
+              <span class="checkmark">✓</span>
+              <span>We prioritize <strong>clarity</strong> in everything we do</span>
+            </div>
+            <div class="checklist-item">
+              <span class="checkmark">✓</span>
+              <span>We provide <strong>meaningful guidance</strong> to help you succeed</span>
+            </div>
+            <div class="checklist-item">
+              <span class="checkmark">✓</span>
+              <span>We help you move forward with <strong>confidence</strong></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ABOUT CARD 3 -->
+        <div class="about-card fade-in">
+          <h3>The Problem We Solve</h3>
+          <p>
+            Many students struggle with knowing where to start, how to stay organized, and which roles fit their skills.
+            Our platform removes the guesswork by giving you structure, clarity, and personalized AI-powered insights.
+          </p>
+        </div>
+
+        <!-- ABOUT CARD 4 -->
+        <div class="about-card fade-in">
+          <h3>Why It Matters</h3>
+          <p>
+            The job search shouldn’t feel overwhelming. By combining thoughtful design with powerful AI,
+            we help students feel supported, prepared, and confident as they take their next steps.
+          </p>
+        </div>
+
+      </div>
+    </section>
+    <!-- FOOTER -->
+    <footer class="footer fade-in">
+      <div>© 2026 Prospira — All rights reserved.</div>
+      <div>Built to empower students entering the workforce.</div>
+    </footer>
+
+  </div> <!-- end .page -->
+
+  <!-- Floating Chat Bubble -->
+  <a href="ai-tools.html" class="chat-bubble" title="Chat with AI Assistant">
+    <span class="chat-icon">💬</span>
+  </a>
+
+  <style>
+    .chat-bubble {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      width: 60px;
+      height: 60px;
+      background: var(--brand);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 24px rgba(127, 60, 212, 0.3);
+      transition: all 0.3s ease;
+      z-index: 1000;
+      text-decoration: none;
+    }
+
+    .chat-bubble:hover {
+      transform: scale(1.1);
+      background: var(--brand-hover);
+      box-shadow: 0 12px 32px rgba(127, 60, 212, 0.4);
+    }
+
+    .chat-icon {
+      font-size: 24px;
+      color: white;
+    }
+
+    @media (max-width: 640px) {
+      .chat-bubble {
+        bottom: 16px;
+        right: 16px;
+        width: 56px;
+        height: 56px;
+      }
+
+      .chat-icon {
+        font-size: 20px;
+      }
+    }
+  </style>
+</body>
+</html>

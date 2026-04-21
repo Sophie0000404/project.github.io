@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 420" role="img" aria-labelledby="title desc">
+  <title id="title">Prospira landing page illustration</title>
+  <desc id="desc">Abstract career and job matching illustration with charts and documents.</desc>
+  <defs>
+    <linearGradient id="bgGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#faf5ff"/>
+      <stop offset="100%" stop-color="#ece2ff"/>
+    </linearGradient>
+    <linearGradient id="barGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#7a43e3"/>
+      <stop offset="100%" stop-color="#b16eff"/>
+    </linearGradient>
+  </defs>
+  <rect x="12" y="12" width="576" height="396" rx="36" fill="url(#bgGrad)" stroke="#d8c1ff" stroke-width="2"/>
+  <rect x="420" y="60" width="140" height="140" rx="24" fill="#fff" stroke="#dfd4ff" stroke-width="2"/>
+  <rect x="70" y="80" width="290" height="38" rx="18" fill="#fff" stroke="#e9dafd" stroke-width="2"/>
+  <rect x="70" y="136" width="240" height="22" rx="11" fill="#f5ecff"/>
+  <rect x="70" y="172" width="200" height="22" rx="11" fill="#f5ecff"/>
+  <rect x="70" y="212" width="180" height="22" rx="11" fill="#f5ecff"/>
+  <rect x="70" y="260" width="380" height="140" rx="28" fill="#fff" stroke="#e9dafd" stroke-width="2"/>
+  <rect x="108" y="294" width="52" height="82" rx="16" fill="#7a43e3"/>
+  <rect x="176" y="314" width="52" height="62" rx="16" fill="#9a5ffc"/>
+  <rect x="244" y="330" width="52" height="46" rx="16" fill="#c39cff"/>
+  <rect x="312" y="296" width="52" height="86" rx="16" fill="#7a43e3"/>
+  <rect x="380" y="326" width="52" height="56" rx="16" fill="#9a5ffc"/>
+  <circle cx="470" cy="120" r="24" fill="#7a43e3"/>
+  <path d="M476 116 L470 128 L462 122" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round"/>
+  <path d="M421 199 C445 188 465 188 490 200" fill="none" stroke="#7a43e3" stroke-width="10" stroke-linecap="round"/>
+  <path d="M421 230 C450 218 470 220 492 236" fill="none" stroke="#9a5ffc" stroke-width="10" stroke-linecap="round"/>
+  <circle cx="465" cy="300" r="18" fill="#f2e6ff"/>
+  <circle cx="505" cy="330" r="14" fill="#c39cff"/>
+</svg>

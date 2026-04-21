@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 100" role="img" aria-labelledby="title desc">
+  <title id="title">Prospira logo</title>
+  <desc id="desc">Purple graduation cap logo with Prospira wordmark.</desc>
+  <defs>
+    <linearGradient id="roofGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#4f2f7c"/>
+      <stop offset="100%" stop-color="#1b0f3d"/>
+    </linearGradient>
+  </defs>
+  <path d="M16 40 L160 8 L304 40 L254 58 L206 40 L160 52 L114 64 L66 50 Z" fill="url(#roofGrad)" stroke="#1c0c33" stroke-width="3"/>
+  <rect x="64" y="56" width="30" height="42" rx="7" fill="#8b4fd3"/>
+  <rect x="106" y="54" width="30" height="46" rx="7" fill="#9d62e9"/>
+  <rect x="148" y="52" width="30" height="48" rx="7" fill="#c293fb"/>
+  <rect x="190" y="54" width="30" height="46" rx="7" fill="#9d62e9"/>
+  <rect x="232" y="56" width="30" height="42" rx="7" fill="#8b4fd3"/>
+  <path d="M288 36 C300 39 308 44 308 58 V72 C308 83 299 92 288 92 C277 92 268 83 268 72 V40 L286 43 Z" fill="#1c0c33"/>
+  <circle cx="288" cy="72" r="12" fill="#1c0c33"/>
+  <text x="160" y="95" text-anchor="middle" font-family="Inter, sans-serif" font-size="18" letter-spacing="0.5" fill="#f6f2ff" font-weight="700">PROSPIRA</text>
+</svg>

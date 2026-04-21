@@ -1,0 +1,46 @@
+John Doe
+Software Engineering Student
+University of California, Berkeley
+
+SKILLS:
+- JavaScript (React, Node.js, Express)
+- Python (Django, Flask, Data Analysis)
+- SQL Databases (MySQL, PostgreSQL)
+- Git Version Control
+- HTML/CSS (Responsive Design)
+- RESTful API Development
+- Agile Development Methodology
+
+EXPERIENCE:
+Software Engineering Intern - TechStart Inc (Summer 2023)
+- Developed full-stack web applications using React and Node.js
+- Built REST APIs serving 10,000+ users
+- Collaborated with cross-functional teams using Agile methodology
+- Improved application performance by 40%
+
+Teaching Assistant - CS 61A (Fall 2023)
+- Led weekly lab sections for 30 students
+- Debugged student code and explained complex algorithms
+- Created supplementary learning materials
+
+PROJECTS:
+Personal Finance Tracker (React, Node.js, MongoDB)
+- Built a full-stack application for expense tracking
+- Implemented data visualization with Chart.js
+- Deployed on AWS with 99.9% uptime
+
+Machine Learning Stock Predictor (Python, TensorFlow)
+- Developed predictive models using historical data
+- Achieved 78% accuracy in price predictions
+- Presented findings at university research symposium
+
+EDUCATION:
+Bachelor of Science in Computer Science
+University of California, Berkeley
+Expected Graduation: May 2025
+GPA: 3.8/4.0
+
+CERTIFICATIONS:
+- AWS Certified Cloud Practitioner
+- Google Data Analytics Certificate
+- Meta React Developer Certificate

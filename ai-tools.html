@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Tools Chat — Prospira</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      --bg: #f9f7ff;
+      --panel: #ffffff;
+      --text-main: #1f2437;
+      --text-muted: #5e6275;
+      --brand: #7f3cd4;
+      --brand-soft: rgba(127, 60, 212, 0.12);
+      --border: #e7e2f8;
+      --radius-lg: 24px;
+      --radius-md: 16px;
+      --radius-pill: 999px;
+      --shadow-soft: 0 18px 40px rgba(86, 64, 183, 0.08);
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-main);
+      background: var(--bg);
+      color: var(--text-main);
+      min-height: 100vh;
+      padding: 24px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .page {
+      width: min(1140px, 100%);
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--brand);
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      align-items: center;
+      font-size: 0.95rem;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 10px 14px;
+      border-radius: var(--radius-pill);
+      transition: background 200ms ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      background: var(--brand-soft);
+      color: var(--brand);
+    }
+
+    .hero {
+      display: grid;
+      gap: 24px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 4vw, 3.8rem);
+      line-height: 1.05;
+    }
+
+    .hero p {
+      max-width: 720px;
+      color: var(--text-muted);
+      line-height: 1.75;
+      font-size: 1rem;
+    }
+
+    .chat-container {
+      display: grid;
+      gap: 24px;
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      box-shadow: var(--shadow-soft);
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .chat-window {
+      min-height: 200px;
+      max-height: 400px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 16px;
+      overflow-y: auto;
+      background: #faf9ff;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .message {
+      max-width: 80%;
+      padding: 12px 16px;
+      border-radius: var(--radius-md);
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .message.bot {
+      background: var(--brand-soft);
+      color: var(--brand);
+      align-self: flex-start;
+    }
+
+    .message.user {
+      background: var(--brand);
+      color: white;
+      align-self: flex-end;
+    }
+
+    .chat-input {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .chat-input input {
+      flex: 1;
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      font-size: 1rem;
+      background: #fff;
+    }
+
+    .chat-input button {
+      background: var(--brand);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-pill);
+      padding: 14px 24px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: var(--shadow-soft);
+    }
+
+    .chat-input button:hover {
+      background: #6a2aba;
+    }
+
+    .quick-questions {
+      display: grid;
+      gap: 12px;
+    }
+
+    .quick-questions h3 {
+      font-size: 1.1rem;
+      color: var(--text-main);
+      margin-bottom: 8px;
+    }
+
+    .quick-questions button {
+      background: var(--brand-soft);
+      color: var(--brand);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 10px 14px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      text-align: left;
+      transition: background 200ms ease;
+    }
+
+    .quick-questions button:hover {
+      background: rgba(127, 60, 212, 0.2);
+    }
+
+    .footer {
+      color: var(--text-muted);
+      text-align: center;
+      font-size: 0.9rem;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 640px) {
+      .chat-window {
+        min-height: 150px;
+        max-height: 300px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="navbar">
+      <div class="logo">PROSPIRA</div>
+      <nav class="nav-links">
+        <a href="Jobby.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="#" class="active">AI Tools</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div>
+        <p class="hero-eyebrow">AI Tools Support</p>
+        <h1>Ask me about our AI features</h1>
+      </div>
+      <p>
+        Have questions about our job matching, application tracking, or AI career coaching tools?
+        Chat with our AI assistant to learn more about how Prospira can help with your job search.
+      </p>
+    </section>
+
+    <section class="chat-container">
+      <div class="chat-window" id="chat-window">
+        <div class="message bot">
+          Hi! I'm here to help you learn about Prospira's AI tools. Ask me anything about job matching, application tracking, or career coaching!
+        </div>
+      </div>
+
+      <div class="quick-questions">
+        <h3>Quick questions:</h3>
+        <button onclick="sendMessage('How does job matching work?')">How does job matching work?</button>
+        <button onclick="sendMessage('What is application tracking?')">What is application tracking?</button>
+        <button onclick="sendMessage('Tell me about AI career coaching')">Tell me about AI career coaching</button>
+        <button onclick="sendMessage('How do I get started?')">How do I get started?</button>
+      </div>
+
+      <div class="chat-input">
+        <input type="text" id="message-input" placeholder="Ask about our AI tools..." onkeypress="handleKeyPress(event)">
+        <button onclick="sendMessage()">Send</button>
+      </div>
+    </section>
+
+    <footer class="footer">© 2026 Prospira — Built for students launching their next opportunity.</footer>
+  </div>
+
+  <script>
+    const chatWindow = document.getElementById('chat-window');
+    const messageInput = document.getElementById('message-input');
+
+    const responses = {
+      'job matching': "Our AI job matching compares your resume directly to thousands of job postings to find the best fits. It analyzes skills, experience, and preferences to surface opportunities you might miss otherwise.",
+      'application tracking': "Application tracking keeps all your job applications organized in one dashboard. Track statuses, follow-ups, and deadlines so you never lose sight of your progress.",
+      'career coaching': "AI career coaching provides personalized guidance on resumes, cover letters, interview prep, and career strategy. Get tailored advice based on your experience and goals.",
+      'how does job matching work': "Our AI job matching compares your resume directly to thousands of job postings to find the best fits. It analyzes skills, experience, and preferences to surface opportunities you might miss otherwise.",
+      'what is application tracking': "Application tracking keeps all your job applications organized in one dashboard. Track statuses, follow-ups, and deadlines so you never lose sight of your progress.",
+      'tell me about ai career coaching': "AI career coaching provides personalized guidance on resumes, cover letters, interview prep, and career strategy. Get tailored advice based on your experience and goals.",
+      'how do i get started': "To get started, click 'Get started' on our homepage and upload your resume and information. Our AI will begin matching you with relevant opportunities right away!",
+      'default': "I'm here to help with questions about our AI tools! Try asking about job matching, application tracking, or career coaching."
+    };
+
+    function addMessage(text, isUser = false) {
+      const messageDiv = document.createElement('div');
+      messageDiv.className = `message ${isUser ? 'user' : 'bot'}`;
+      messageDiv.textContent = text;
+      chatWindow.appendChild(messageDiv);
+      chatWindow.scrollTop = chatWindow.scrollHeight;
+    }
+
+    function getResponse(message) {
+      const lowerMessage = message.toLowerCase();
+      for (const [key, response] of Object.entries(responses)) {
+        if (lowerMessage.includes(key)) {
+          return response;
+        }
+      }
+      return responses.default;
+    }
+
+    function sendMessage(message = null) {
+      const text = message || messageInput.value.trim();
+      if (!text) return;
+
+      addMessage(text, true);
+      messageInput.value = '';
+
+      setTimeout(() => {
+        const response = getResponse(text);
+        addMessage(response);
+      }, 500);
+    }
+
+    function handleKeyPress(event) {
+      if (event.key === 'Enter') {
+        sendMessage();
+      }
+    }
+  </script>
+</body>
+</html>

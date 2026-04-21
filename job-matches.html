@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Your Job Matches — Prospira</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      --bg: #f9f7ff;
+      --panel: #ffffff;
+      --text-main: #1f2437;
+      --text-muted: #5e6275;
+      --brand: #7f3cd4;
+      --brand-soft: rgba(127, 60, 212, 0.12);
+      --border: #e7e2f8;
+      --radius-lg: 24px;
+      --radius-md: 16px;
+      --radius-pill: 999px;
+      --shadow-soft: 0 18px 40px rgba(86, 64, 183, 0.08);
+      --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-main);
+      background: var(--bg);
+      color: var(--text-main);
+      min-height: 100vh;
+      padding: 24px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .page {
+      width: min(1200px, 100%);
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .navbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--brand);
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      align-items: center;
+      font-size: 0.95rem;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 10px 14px;
+      border-radius: var(--radius-pill);
+      transition: background 200ms ease;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      background: var(--brand-soft);
+      color: var(--brand);
+    }
+
+    .hero {
+      display: grid;
+      gap: 24px;
+      text-align: center;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 4vw, 3.8rem);
+      line-height: 1.05;
+    }
+
+    .hero p {
+      max-width: 800px;
+      color: var(--text-muted);
+      line-height: 1.75;
+      font-size: 1rem;
+      margin: 0 auto;
+    }
+
+    .skills-summary {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .skills-summary h3 {
+      color: var(--brand);
+      margin-bottom: 12px;
+    }
+
+    .extracted-skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 16px;
+    }
+
+    .skill-tag {
+      background: rgba(127, 60, 212, 0.1);
+      color: var(--brand);
+      padding: 6px 12px;
+      border-radius: var(--radius-pill);
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .job-results {
+      display: grid;
+      gap: 24px;
+    }
+
+    .job-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 28px;
+      text-align: left;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .job-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .job-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 12px;
+    }
+
+    .job-header h3 {
+      margin: 0;
+      color: var(--brand);
+      font-size: 1.3rem;
+    }
+
+    .job-type {
+      background: rgba(127, 60, 212, 0.1);
+      color: var(--brand);
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .job-meta {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .job-description {
+      color: var(--text-main);
+      line-height: 1.6;
+      margin-bottom: 16px;
+    }
+
+    .job-requirements {
+      background: #f8f7ff;
+      border-left: 3px solid var(--brand);
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+
+    .job-requirements strong {
+      color: var(--brand);
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .job-requirements ul {
+      margin: 0;
+      padding-left: 16px;
+    }
+
+    .job-requirements li {
+      margin-bottom: 4px;
+      color: var(--text-main);
+    }
+
+    .job-skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+
+    .job-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
+
+    .job-source {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    .apply-btn {
+      background: var(--brand);
+      color: white;
+      border: none;
+      border-radius: var(--radius-pill);
+      padding: 10px 20px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .apply-btn:hover {
+      background: #6a2aba;
+    }
+
+    .back-btn {
+      background: transparent;
+      color: var(--brand);
+      border: 2px solid var(--brand);
+      border-radius: var(--radius-pill);
+      padding: 12px 24px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 16px;
+      transition: all 0.2s ease;
+    }
+
+    .back-btn:hover {
+      background: var(--brand);
+      color: white;
+    }
+
+    .footer {
+      color: var(--text-muted);
+      text-align: center;
+      font-size: 0.9rem;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+    }
+
+    .loading {
+      text-align: center;
+      padding: 60px;
+    }
+
+    .loading-spinner {
+      font-size: 3rem;
+      margin-bottom: 20px;
+    }
+
+    @media (max-width: 768px) {
+      .job-header {
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .job-footer {
+        flex-direction: column;
+        gap: 12px;
+        align-items: stretch;
+      }
+
+      .job-meta {
+        flex-direction: column;
+        gap: 4px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="navbar">
+      <div class="logo">PROSPIRA</div>
+      <nav class="nav-links">
+        <a href="Jobby.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="ai-tools.html">AI Tools</a>
+        <a href="getstarted.html">Get started</a>
+      </nav>
+    </header>
+
+    <section class="hero">
+      <div id="loading-state" class="loading">
+        <div class="loading-spinner">🔄</div>
+        <h2>Analyzing your resume...</h2>
+        <p>Our AI is processing your documents and finding the perfect job matches.</p>
+      </div>
+
+      <div id="results-content" style="display: none;">
+        <h1 id="welcome-message">Your Personalized Job Matches</h1>
+        <p id="results-description">Based on your resume analysis, here are the most relevant opportunities for you.</p>
+
+        <div class="skills-summary">
+          <h3>Skills Extracted from Your Resume</h3>
+          <div id="extracted-skills" class="extracted-skills">
+            <!-- Skills will be populated by JavaScript -->
+          </div>
+          <p id="match-count">Found <span id="job-count">0</span> matching opportunities</p>
+        </div>
+
+        <div id="job-results" class="job-results">
+          <!-- Job results will be populated by JavaScript -->
+        </div>
+
+        <div style="text-align: center; margin-top: 40px;">
+          <a href="getstarted.html" class="back-btn">← Upload Different Documents</a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">© 2026 Prospira — Built for students launching their next opportunity.</footer>
+  </div>
+
+  <script>
+    // Job database (same as getstarted.html)
+    const jobDatabase = [
+      {
+        id: 1,
+        title: "Software Engineering Intern",
+        company: "TechCorp",
+        location: "San Francisco, CA",
+        salary: "$25-35/hr",
+        type: "Internship",
+        skills: ["JavaScript", "React", "Node.js", "Python", "Git"],
+        description: "Join our engineering team to build scalable web applications using modern technologies.",
+        requirements: ["Currently pursuing CS degree", "Experience with web development", "Strong problem-solving skills"],
+        posted: "2024-01-15",
+        source: "TechCorp Careers"
+      },
+      {
+        id: 2,
+        title: "Data Analyst",
+        company: "DataDriven Inc",
+        location: "New York, NY",
+        salary: "$65,000-75,000",
+        type: "Full-time",
+        skills: ["Python", "SQL", "Tableau", "Statistics", "Excel"],
+        description: "Analyze large datasets to drive business insights and support data-driven decision making.",
+        requirements: ["Bachelor's in relevant field", "2+ years experience", "SQL proficiency"],
+        posted: "2024-01-10",
+        source: "DataDriven Inc"
+      },
+      {
+        id: 3,
+        title: "Marketing Coordinator",
+        company: "BrandBoost",
+        location: "Austin, TX",
+        salary: "$45,000-55,000",
+        type: "Full-time",
+        skills: ["Social Media", "Content Creation", "Analytics", "Adobe Creative Suite", "SEO"],
+        description: "Manage digital marketing campaigns and content strategy for growing tech companies.",
+        requirements: ["Digital marketing experience", "Social media expertise", "Analytics skills"],
+        posted: "2024-01-12",
+        source: "BrandBoost"
+      },
+      {
+        id: 4,
+        title: "UX/UI Designer",
+        company: "DesignStudio",
+        location: "Los Angeles, CA",
+        salary: "$60,000-70,000",
+        type: "Full-time",
+        skills: ["Figma", "Sketch", "User Research", "Prototyping", "Adobe XD"],
+        description: "Create intuitive user experiences for web and mobile applications.",
+        requirements: ["Portfolio required", "3+ years design experience", "User research skills"],
+        posted: "2024-01-08",
+        source: "DesignStudio"
+      },
+      {
+        id: 5,
+        title: "Business Analyst",
+        company: "ConsultCo",
+        location: "Chicago, IL",
+        salary: "$55,000-65,000",
+        type: "Full-time",
+        skills: ["Excel", "Power BI", "SQL", "Business Analysis", "Requirements Gathering"],
+        description: "Support business operations with data-driven insights and process improvements.",
+        requirements: ["Business analysis certification preferred", "SQL experience", "Communication skills"],
+        posted: "2024-01-14",
+        source: "ConsultCo"
+      },
+      {
+        id: 6,
+        title: "Frontend Developer",
+        company: "WebFlow Inc",
+        location: "Seattle, WA",
+        salary: "$70,000-85,000",
+        type: "Full-time",
+        skills: ["JavaScript", "React", "CSS", "HTML", "TypeScript"],
+        description: "Build responsive and interactive user interfaces for our SaaS platform.",
+        requirements: ["3+ years frontend experience", "React expertise", "Modern CSS knowledge"],
+        posted: "2024-01-11",
+        source: "WebFlow Inc"
+      },
+      {
+        id: 7,
+        title: "Machine Learning Engineer",
+        company: "AI Solutions",
+        location: "Boston, MA",
+        salary: "$90,000-110,000",
+        type: "Full-time",
+        skills: ["Python", "TensorFlow", "PyTorch", "Machine Learning", "Deep Learning"],
+        description: "Develop and deploy machine learning models for various applications.",
+        requirements: ["PhD or MS in relevant field", "ML experience", "Python proficiency"],
+        posted: "2024-01-09",
+        source: "AI Solutions"
+      },
+      {
+        id: 8,
+        title: "Product Manager",
+        company: "InnovateTech",
+        location: "Denver, CO",
+        salary: "$80,000-95,000",
+        type: "Full-time",
+        skills: ["Product Management", "Agile", "Analytics", "User Research", "SQL"],
+        description: "Lead product development from ideation to launch for consumer applications.",
+        requirements: ["3+ years PM experience", "Technical background", "Leadership skills"],
+        posted: "2024-01-13",
+        source: "InnovateTech"
+      }
+    ];
+
+    // Get URL parameters
+    function getUrlParameter(name) {
+      name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+      const regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+      const results = regex.exec(location.search);
+      return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    }
+
+    // Parse skills from URL parameter
+    function getSkillsFromUrl() {
+      const skillsParam = getUrlParameter('skills');
+      return skillsParam ? skillsParam.split(',') : [];
+    }
+
+    // Parse user data from URL
+    function getUserDataFromUrl() {
+      return {
+        name: getUrlParameter('name') || 'there',
+        email: getUrlParameter('email'),
+        goals: getUrlParameter('goals')
+      };
+    }
+
+    // AI-powered job matching (same logic as getstarted.html)
+    function findJobMatchesAI(extractedSkills) {
+      if (extractedSkills.length === 0) {
+        return jobDatabase.slice(0, 4);
+      }
+
+      const scoredJobs = jobDatabase.map(job => {
+        let score = 0;
+        const jobSkills = job.skills.map(s => s.toLowerCase());
+
+        extractedSkills.forEach(userSkill => {
+          if (jobSkills.some(jobSkill => jobSkill.includes(userSkill) || userSkill.includes(jobSkill))) {
+            score += 1;
+          }
+        });
+
+        return { ...job, matchScore: score };
+      });
+
+      return scoredJobs
+        .sort((a, b) => b.matchScore - a.matchScore)
+        .slice(0, 4);
+    }
+
+    // Render skills
+    function renderSkills(skills) {
+      const skillsContainer = document.getElementById('extracted-skills');
+      if (skills.length === 0) {
+        skillsContainer.innerHTML = '<span class="skill-tag">No specific skills detected</span>';
+        return;
+      }
+
+      skillsContainer.innerHTML = skills.map(skill =>
+        `<span class="skill-tag">${skill.charAt(0).toUpperCase() + skill.slice(1)}</span>`
+      ).join('');
+    }
+
+    // Render job results
+    function renderJobResults(jobs) {
+      const resultsContainer = document.getElementById('job-results');
+      const jobCountElement = document.getElementById('job-count');
+
+      jobCountElement.textContent = jobs.length;
+
+      resultsContainer.innerHTML = jobs.map(job => `
+        <div class="job-card">
+          <div class="job-header">
+            <h3>${job.title}</h3>
+            <span class="job-type">${job.type}</span>
+          </div>
+          <div class="job-meta">
+            <span><strong>${job.company}</strong></span>
+            <span>${job.location}</span>
+            <span>${job.salary}</span>
+          </div>
+          <p class="job-description">${job.description}</p>
+          <div class="job-requirements">
+            <strong>Requirements:</strong>
+            <ul>
+              ${job.requirements.map(req => `<li>${req}</li>`).join('')}
+            </ul>
+          </div>
+          <div class="job-skills">
+            ${job.skills.map(skill => `<span class="skill-tag">${skill}</span>`).join('')}
+          </div>
+          <div class="job-footer">
+            <span class="job-source">Source: ${job.source} • Posted: ${job.posted}</span>
+            <button class="apply-btn" onclick="applyToJob(${job.id}, '${job.title}', '${job.company}')">Apply Now</button>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    // Handle job application
+    function applyToJob(jobId, title, company) {
+      alert(`Application started for "${title}" at ${company}!\n\nIn a real application, this would redirect you to the company's application page or open an application form.`);
+    }
+
+    // Initialize the page
+    function initializePage() {
+      const userData = getUserDataFromUrl();
+      const extractedSkills = getSkillsFromUrl();
+
+      // Update welcome message
+      const welcomeElement = document.getElementById('welcome-message');
+      welcomeElement.textContent = `Your Personalized Job Matches, ${userData.name}!`;
+
+      // Update description
+      const descriptionElement = document.getElementById('results-description');
+      descriptionElement.textContent = extractedSkills.length > 0
+        ? `Our AI analyzed your resume and found ${extractedSkills.length} key skills. Here are the most relevant opportunities for you.`
+        : `Our AI analyzed your resume. Here are some great opportunities to explore.`;
+
+      // Find matching jobs
+      const matchedJobs = findJobMatchesAI(extractedSkills);
+
+      // Render skills and jobs
+      renderSkills(extractedSkills);
+      renderJobResults(matchedJobs);
+
+      // Hide loading, show results
+      setTimeout(() => {
+        document.getElementById('loading-state').style.display = 'none';
+        document.getElementById('results-content').style.display = 'block';
+      }, 2000);
+    }
+
+    // Start when page loads
+    window.addEventListener('load', initializePage);
+  </script>
+</body>
+</html>
